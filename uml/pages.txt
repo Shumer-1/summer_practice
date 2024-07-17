@@ -1,0 +1,118 @@
+@startuml
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+class BasePage {
+- pageAddress: String 
+
++ BasePage(String)
++ openPage(): String 
+# getDescribableElement(String): DescribableElement 
+# getButtonElement(String): ButtonElement
+# getTextElement(String): TextElement
+# getTextFieldElement(String): TextFieldElement
+}
+
+class LoginPage {
+- EMAIL_TEXTFIELD_XPATH: String
+- PASSWORD_TEXTFIELD_XPATH: String
+- SUBMIT_BUTTON_XPATH: String
+- WARNING_WINDOW_XPATH: String
+
++ LoginPage()
++ authorize(String, String): void
++ hasWarningMessage(): boolean
+}
+
+class ProductSetPage {
+- EMPTINESS_MESSAGE_XPATH: String
+
++ ProductSetPage(String)
+# isEmpty(String): boolean
+# getFirstProductPage(String): ProductPage
+# getProductPages(String): ArrayList<ProductPage>
+}
+
+class CataloguePage {
+- FILTER_BUTTON_XPATH: String
+- PRICE_SORT_BUTTON_XPATH: String
+- PRICE_TEXTFIELD_XPATH: String
+- PRODUCTS_LIMIT_XPATH: String
+- PRODUCT_XPATH: String
+- PRODUCTS_LIMIT_PAGES_XPATH: String
+- PRODUCT_PRICE_XPATH: String
+- DOUBLE_NULL: double
+
++ CataloguePage(String)
++ chooseFilter(String): void
++ sortProductsByPrice(): void
++ setPriceLimit(int): void
++ getNumberOfProductsLimit(): int
++ getNumberOfProducts(): int
++ getProductPages(): ArrayList<ProductPage>
++ getFirstProductPage(): ProductPage 
++ getPagesWithNumberOfProductsLimits(): ArrayList<CataloguePage>
++ checkSortedPrices(): Pair<Boolean, ArrayList<Double>>
++ checkLimitedPrices(int): Pair<Boolean, ArrayList<Double>>
+}
+
+class BackpacksCataloguePage {
++ BackpacksCataloguePage()
+}
+
+class ClothesCataloguePage {
++ ClothesCataloguePage()
+}
+
+class ProductPage {
+- PRODUCT_COLOR_XPATH: String
+- PRODUCT_ARTICLE_XPATH: String
+- ADD_TO_WISHLIST_BUTTON_XPATH: String
+- ADD_TO_CART_BUTTON_XPATH: String
+- PRODUCT_SIZE_BUTTON_XPATH: String
+- CONFIRM_BUTTON_XPATH: String
+- PRODUCT_TYPE_XPATH: String
+
++ ProductPage(String)
++ getColor(): String 
++ isSpecificType(String): boolean
++ getArticle(): String 
++ clickFavouritesButton(): void
++ addToShoppingCart(): void
+}
+
+class CartPage{
+- EMPTINESS_MESSAGE: String
+- AMOUNT_XPATH: String
+- INCREASE_AMOUNT_BUTTON_XPATH: String
+- DELETE_BUTTON_XPATH: String
+- PRODUCT_XPATH: String
+
++ CartPage()
++ getAmountOfFirstProduct(): int
++ increaseAmountOfFirstProduct(int): void
++ removeFirstProduct(): void
++ isEmpty(): boolean
++ getFirstProductPage(): ProductPage 
+}
+
+class WishlistPage{
+- EMPTINESS_MESSAGE: String
+- PRODUCT_XPATH: String
+
++ WishlistPage()
++ isEmpty(): boolean
++ getFirstProductPage(): ProductPage 
+}
+
+BasePage <|-- LoginPage
+BasePage <|-- ProductPage
+BasePage <|-- ProductSetPage
+ProductSetPage <|-- CartPage
+ProductSetPage <|-- WishlistPage
+ProductSetPage <|-- CataloguePage
+CataloguePage <|-- BackpacksCataloguePage
+CataloguePage <|-- ClothesCataloguePage
+ProductPage <-- CataloguePage
+@enduml

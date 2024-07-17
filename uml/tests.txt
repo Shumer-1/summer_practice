@@ -1,0 +1,68 @@
+@startuml
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+class BaseTest {
+# logger: Logger 
+- BROWSER: String
+- PAGE_LOAD_TIMEOUT: int
+- TIMEOUT: int
+- PROP_PATH: String
+
++ setUpWebDriver(): void
++ setUpLogger(String): void
++ init(): void
++ tearDown(): void
+}
+
+class AuthorizationTest{
+- USER_PASSWORD: String
+- USER_EMAIL: String
+- EXPECTED_URL: String
+
++ initializeUser(): void
++ correctAuthorizationTest(): void
++ incorrectLoginAuthorizationTest(): void
++ incorrectPasswordAuthorizationTest(): void
++ noLoginAuthorizationTest(): void
+}
+
+class FavoritesTest {
++ addFavoritesTest(): void
++ removeFavouritesTest(): void
+}
+
+class ShoppingCartTest {
++ addToShoppingCartTest(): void
++ increaseAmountOfProduct(): void
++ removeFromShoppingCartTest(): void
+}
+
+class FilterTest{
+- COLOR: String
+- TYPE: String
+- PRICE: int
+
++ colorFilterTest(): void
++ typeFilterTest(): void
++ priceRangeTest(): void
+}
+
+class NumberOfProductsLimitTest{
++ limitNumberOfProductsTest(): void
+}
+
+class SortTest{
++ priceSortTest(): void
+}
+
+BaseTest <|-down- AuthorizationTest
+
+BaseTest <|-down- FavoritesTest
+BaseTest <|-down- ShoppingCartTest 
+
+BaseTest <|-up- FilterTest
+BaseTest <|-up- NumberOfProductsLimitTest
+BaseTest <|-up- SortTest
+@enduml

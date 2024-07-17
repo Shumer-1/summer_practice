@@ -1,0 +1,46 @@
+@startuml
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+class BaseElement {
+# element: SelenideElement 
++ BaseElement(String)
++ BaseElement(SelenideElement)
++ describe(): String 
++ exists(): boolean
+}
+
+class ButtonElement{
++ ButtonElement(String)
++ ButtonElement(SelenideElement)
++ click(): void 
++ getAllElements(String): ArrayList<ButtonElement>
+}
+
+class DescribableElement{
++ DescribableElement(String)
++ DescribableElement(SelenideElement)
++ getAllElements(String): ArrayList<DescribableElement>
+}
+
+class TextElement{
++ TextElement(String)
++ TextElement(SelenideElement)
++ text(): String 
++ getAllElements(String): ArrayList<TextElement>
+}
+
+class TextFieldElement{
++ TextFieldElement(String)
++ TextFieldElement(SelenideElement)
++ setValue(String): void
++ pressEnter(): void
++ getAllElements(String): ArrayList<TextFieldElement>
+}
+
+BaseElement <|-- ButtonElement 
+BaseElement <|-- DescribableElement
+BaseElement <|-- TextElement
+BaseElement <|-- TextFieldElement
+@enduml
